@@ -1,0 +1,4 @@
+./dist
+__pycache__/
+derby.log
+.python-version

@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "databricks-boilerplate"
+version = "0.0.1"
+description = ""
+authors = ["Matyas File <matyas.file@zeiss.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+boilerplate = 'databricks_boilerplate.main:entry_point'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyspark = "^3.5.1"
+pydantic = "^2.7.4"
+delta-spark = "^3.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+ruff = "^0.4.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+include = [
+    ".py"
+]
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    "ANN", # force annotations
+    "ARG", # report unused args
+    "BLE", # boolean trap guard
+    "C",   # pylint conventions
+    "C4",  # better list/set/dict comprehensions
+    "COM", # trailing comma validation
+    "D",   # pydocstyle compliance
+    "E",   # guard against hard-to-spot mistakes that might lead to critical errors
+    "EM",  # nicer error messages
+    "ERA", # guard against commented out code
+    "F",   # Pyflakes, included in default
+    "G",   # force proper logger invocation
+    "I",   # sorting
+    "ICN", # force import naming conventions
+    "INP", # guard against implicit namespace packages
+    "ISC", # flake8 rules
+    "N",   # force PEP8 naming conventions
+    "PIE", # guard against unnecessary/duplicate statements/expressions
+    "PL",  # pylint
+    "PYI", # enable type hinting stub files support
+    "Q",   # unify quotes
+    "RET", # simplify functions by omitting unnecessary branches and return statements
+    "RSE", # guard against common exception raising pitfalls
+    "S",   # guard against insecure statements/expressions
+    "SLF", # guard against private member access
+    "T20", # guard against print statements
+    "TID", # introduce module banning and force absolute imports
+    "W",   # pycodestyles errors and warnings
+]
+ignore = [
+    "D100"
+]
+fixable = ["ALL"]  # Allow fix for all enabled rules (when `--fix`) is provided.
+unfixable = []
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
