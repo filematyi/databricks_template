@@ -52,5 +52,4 @@ class MainConfiguration(BaseConfiguration):
     external_storage = StorageConfiguration()
     ingress_storage = StorageConfiguration()
 
-
 configuration: MainConfiguration = MainConfiguration()

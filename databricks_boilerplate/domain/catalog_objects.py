@@ -1,31 +1,31 @@
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
 from databricks_boilerplate.tools.entities import Catalog, Database, Format, StorageLocation, Table, Volume
-
+from databricks_boilerplate.config import configuration
 
 catalog_location = StorageLocation(
-    account_name="mfiledatabricksstorage2",
-    container_name="unity-catalog-container",
+    account_name=configuration.unity_storage.account_name,
+    container_name=configuration.unity_storage.container_name,
     sub_path="",
 )
 raw_database_location = StorageLocation(
-    account_name="mfiledatabricksstorage2",
-    container_name="unity-catalog-container",
-    sub_path="databases",
+    account_name=configuration.unity_storage.account_name,
+    container_name=configuration.unity_storage.container_name,
+    sub_path="",
 )
 raw_table_location = StorageLocation(
-    account_name="mfiledatabricksstorage2",
-    container_name="external-data-container",
+    account_name=configuration.external_storage.account_name,
+    container_name=configuration.external_storage.container_name,
     sub_path="raw_tables",
 )
 enriched_table_location = StorageLocation(
-    account_name="mfiledatabricksstorage2",
-    container_name="external-data-container",
+    account_name=configuration.external_storage.account_name,
+    container_name=configuration.external_storage.container_name,
     sub_path="enriched_tables",
 )
 volume_location = StorageLocation(
-    account_name="mfiledatabricksstorage2",
-    container_name="databricks",
+    account_name=configuration.ingress_storage.account_name,
+    container_name=configuration.ingress_storage.container_name,
     sub_path="",
 )
 
