@@ -2,7 +2,7 @@ import argparse
 from pydantic import BaseModel
 from pyspark.sql import SparkSession
 
-from databricks_boilerplate.domain.catalog_objects import mfile_catalog, raw_database, enriched_database, raw_table, enriched_table, raw_volume
+from databricks_boilerplate.domain.catalog_objects import MFILE_CATALOG, RAW_DATABASE, ENRICHED_DATABASE, RAW_TABLE, ENRICHED_TABLE, RAW_VOLUME
 from databricks_boilerplate.jobs.base_job import job_enriched_raw_table_with_date, job_enriched_table_to_gold
 from databricks_boilerplate.tools.actions import create_catalog, create_database, create_table, create_volume
 
@@ -24,19 +24,19 @@ class JobParameters(BaseModel):
 
         return JobParameters(
             job_name=args.job_name,
-            dry_run=args.dry_run
+            dry_run=args.dry_run,
         )
 
 
 def _create_objects_if_not_exists(spark: SparkSession):
-    create_catalog(spark, mfile_catalog)
-    create_database(spark, raw_database)
-    create_database(spark, enriched_database)
+    create_catalog(spark, MFILE_CATALOG)
+    create_database(spark, RAW_DATABASE)
+    create_database(spark, ENRICHED_DATABASE)
 
-    create_table(spark, raw_table)
-    create_table(spark, enriched_table)
+    create_table(spark, RAW_TABLE)
+    create_table(spark, ENRICHED_TABLE)
 
-    create_volume(spark, raw_volume)
+    create_volume(spark, RAW_VOLUME)
 
 
 def entry_point() -> None:

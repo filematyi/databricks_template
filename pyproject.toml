@@ -8,11 +8,20 @@ readme = "README.md"
 [tool.poetry.scripts]
 boilerplate = 'databricks_boilerplate.main:entry_point'
 
+[[tool.poetry.source]]
+name = "ZEISS_databricks_example"
+url = "https://pkgs.dev.azure.com/ZEISSgroup/ZDP-AP_eVA_MS_MVP/_packaging/ZEISS_databricks_example/pypi/upload/"
+secondary = true
+
 [tool.poetry.dependencies]
 python = "^3.10"
 pyspark = "^3.5.1"
 pydantic = "^2.7.4"
 delta-spark = "^3.2.0"
+pydantic-settings = "^2.3.4"
+twine = "^5.1.1"
+keyring = "^25.2.1"
+artifacts-keyring = "^0.3.6"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -62,7 +71,7 @@ select = [
     "W",   # pycodestyles errors and warnings
 ]
 ignore = [
-    "D100"
+    "D100", "D106", "D101"
 ]
 fixable = ["ALL"]  # Allow fix for all enabled rules (when `--fix`) is provided.
 unfixable = []

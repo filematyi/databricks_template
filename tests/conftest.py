@@ -1,7 +1,7 @@
 from copy import deepcopy
 from pytest import fixture
 from pyspark.sql import SparkSession
-from databricks_boilerplate.tools.objects import Format, LocalLocation, Table
+from databricks_boilerplate.tools.entities import Format, LocalLocation, Table
 
 
 @fixture

@@ -1,6 +1,6 @@
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
-from databricks_boilerplate.tools.objects import Catalog, Database, Format, StorageLocation, Table, Volume
+from databricks_boilerplate.tools.entities import Catalog, Database, Format, StorageLocation, Table, Volume
 
 
 catalog_location = StorageLocation(
@@ -29,19 +29,19 @@ volume_location = StorageLocation(
     sub_path="",
 )
 
-mfile_catalog = Catalog(
+MFILE_CATALOG = Catalog(
     name="mfile-catalog",
     storage_location=catalog_location,
 )
 
-raw_database = Database(
+RAW_DATABASE = Database(
     name="raw_schema",
-    catalog=mfile_catalog,
+    catalog=MFILE_CATALOG,
     storage_location=raw_database_location,
 )
-enriched_database = Database(
+ENRICHED_DATABASE = Database(
     name="enriched_schema",
-    catalog=mfile_catalog,
+    catalog=MFILE_CATALOG,
     storage_location=raw_database_location,
 )
 
@@ -49,13 +49,12 @@ raw_schema = StructType([
     StructField(name="name", dataType=StringType(), nullable=False),
     StructField(name="age", dataType=IntegerType(), nullable=False),
 ])
-raw_table = Table(
+RAW_TABLE = Table(
     name="my_raw_table",
     table_schema=raw_schema,
     format=Format.DELTA,
     location=raw_table_location,
-    catalog=mfile_catalog,
-    database=raw_database
+    database=RAW_DATABASE,
 )
 
 enriched_schema = StructType([
@@ -63,13 +62,12 @@ enriched_schema = StructType([
     StructField(name="age", dataType=IntegerType(), nullable=False),
     StructField(name="date", dataType=StringType(), nullable=False),
 ])
-enriched_table = Table(
+ENRICHED_TABLE = Table(
     name="my_enriched_table",
     table_schema=enriched_schema,
     format=Format.DELTA,
     location=enriched_table_location,
-    catalog=mfile_catalog,
-    database=enriched_database
+    database=ENRICHED_DATABASE,
 )
 
 
@@ -77,18 +75,16 @@ gold_schema = StructType([
     StructField(name="name", dataType=StringType(), nullable=False),
     StructField(name="gender", dataType=StringType(), nullable=False),
 ])
-gold_table = Table(
+GOLD_TABLE = Table(
     name="my_gold_table",
     table_schema=gold_schema,
     format=Format.DELTA,
     location=enriched_table_location,
-    catalog=mfile_catalog,
-    database=enriched_database
+    database=ENRICHED_DATABASE,
 )
 
-raw_volume = Volume(
+RAW_VOLUME = Volume(
     name="myvolume",
     location=volume_location,
-    catalog=mfile_catalog,
-    database=raw_database,
+    database=RAW_DATABASE,
 )

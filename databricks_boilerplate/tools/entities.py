@@ -35,9 +35,21 @@ class StorageLocation(Location):
             sub_path = sub_path[: -1]
         self.sub_path = sub_path
 
-    def abfss_path(self):
+    def abfss_path(self) -> str:
         self._clean_sub_path()
         return f"abfss://{self.container_name}@{self.account_name}.dfs.core.windows.net/{self.sub_path}"
+
+    @staticmethod
+    def from_url(url: str) -> Location:
+        url = url.replace("abfss://", "")
+        container_name, account_n_path = url.split("@", 1)
+        account_name = account_n_path.split(".", 1)[0]
+        sub_path = account_n_path.split("/", 1)[1]
+        return StorageLocation(
+            account_name=account_name,
+            container_name=container_name,
+            sub_path=sub_path,
+        )
 
 
 class LocalLocation(Location):
@@ -60,29 +72,30 @@ class Table(BaseModel):
     table_schema: Any
     format: Format
     location: Location
-    catalog: Catalog
     database: Database
     partition_by: Union[str, List[str], None] = None
 
     @property
     def full_location(self) -> str:
         return f"{self.location.abfss_path()}/{self.name}"
-    
+
     @property
     def full_name(self) -> str:
-        return f"`{self.catalog.name}`.`{self.database.name}`.`{self.name}`"
-    
+        return f"`{self.database.catalog.name}`.`{self.database.name}`.`{self.name}`"
+
 
 class Volume(BaseModel):
     name: str
     location: Location
-    catalog: Catalog
     database: Database
 
-    @property
-    def full_location(self) -> str:
-        return f"{self.location.abfss_path()}/{self.name}"
+
+class VolumeLocation(Location):
+    volume: Volume
 
     @property
-    def full_name(self) -> str:
-        return f"`{self.catalog.name}`.`{self.database.name}`.`{self.name}`"
+    def root_path(self) -> None:
+        name = self.volume.name
+        catalog_name = self.volume.catalog.name
+        database_name = self.volume.database.name
+        return f"/Volumes/{catalog_name}/{database_name}/{name}"

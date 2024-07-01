@@ -1,8 +1,8 @@
 from copy import deepcopy
 from databricks_boilerplate.tools.actions import insert_dataframe_to_table
-from databricks_boilerplate.tools.objects import LocalLocation
+from databricks_boilerplate.tools.entities import LocalLocation
 from pyspark.sql import Row, SparkSession
-from databricks_boilerplate.domain.catalog_objects import enriched_schema, enriched_table
+from databricks_boilerplate.domain.catalog_objects import enriched_schema, ENRICHED_TABLE
 
 spark = SparkSession\
         .builder\
@@ -21,7 +21,7 @@ rows = [
 ]
 df = spark.createDataFrame(rows, enriched_schema)
 
-copied_enriched_table = deepcopy(enriched_table)
+copied_enriched_table = deepcopy(ENRICHED_TABLE)
 copied_enriched_table.location = LocalLocation(path="./tests/src/my_enriched_table/my_enriched_table")
 copied_enriched_table.format = 'parquet'
 

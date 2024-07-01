@@ -3,7 +3,6 @@ from typing import Callable
 from databricks_boilerplate.tools.actions import insert_dataframe_to_table, read_table_into_dataframe
 
 
-
 def jobcontroller(inputs: list, outputs: list):
     def decorator(func: Callable):
         def wrapper(spark, *args, **kwargs):
