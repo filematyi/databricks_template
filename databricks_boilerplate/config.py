@@ -41,15 +41,15 @@ class BaseConfiguration(BaseSettings):
 class StorageConfiguration(BaseSettings):
     """Base configuration of dedicated storage account to Unity Catalog"""
 
-    account_name: str
-    container_name: str
+    account_name: str = ""
+    container_name: str = ""
 
 
 class MainConfiguration(BaseConfiguration):
     """Configuration class for the service."""
 
-    unity_storage = StorageConfiguration()
-    external_storage = StorageConfiguration()
-    ingress_storage = StorageConfiguration()
+    unity_storage: StorageConfiguration = StorageConfiguration()
+    external_storage: StorageConfiguration = StorageConfiguration()
+    ingress_storage: StorageConfiguration = StorageConfiguration()
 
 configuration: MainConfiguration = MainConfiguration()

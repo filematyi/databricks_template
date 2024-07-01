@@ -50,8 +50,8 @@ def entry_point() -> None:
         .getActiveSession()
 
     if job_parameters.job_name == "make_gold_job":
-        job_enriched_table_to_gold(spark=spark)
+        job_enriched_table_to_gold(spark=spark, dry_run=job_parameters.dry_run)
     if job_parameters.job_name == "enrich_raw_job":
-        job_enriched_raw_table_with_date(spark=spark)
+        job_enriched_raw_table_with_date(spark=spark, dry_run=job_parameters.dry_run)
     if job_parameters.job_name == "catalog_initialization":
-        _create_objects_if_not_exists(spark=spark)
+        _create_objects_if_not_exists(spark=spark, dry_run=job_parameters.dry_run)
