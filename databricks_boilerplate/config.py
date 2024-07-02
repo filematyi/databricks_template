@@ -27,7 +27,7 @@ class LogLevel(Enum):
 
 
 class BaseConfiguration(BaseSettings):
-    """Base configuration object based on pydantic.BaseSettings"""
+    """Base configuration object based on pydantic.BaseSettings."""
 
     model_config = SettingsConfigDict(
         env_prefix="",
@@ -39,7 +39,7 @@ class BaseConfiguration(BaseSettings):
 
 
 class StorageConfiguration(BaseSettings):
-    """Base configuration of dedicated storage account to Unity Catalog"""
+    """Base configuration of dedicated storage account to Unity Catalog."""
 
     account_name: str = ""
     container_name: str = ""

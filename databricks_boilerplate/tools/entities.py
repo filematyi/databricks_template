@@ -36,11 +36,13 @@ class StorageLocation(Location):
         self.sub_path = sub_path
 
     def abfss_path(self) -> str:
+        """Generate abfss URI."""
         self._clean_sub_path()
         return f"abfss://{self.container_name}@{self.account_name}.dfs.core.windows.net/{self.sub_path}"
 
     @staticmethod
     def from_url(url: str) -> Location:
+        """Parse abfss URI."""
         url = url.replace("abfss://", "")
         container_name, account_n_path = url.split("@", 1)
         account_name = account_n_path.split(".", 1)[0]
@@ -77,10 +79,15 @@ class Table(BaseModel):
 
     @property
     def full_location(self) -> str:
+        """Generate full URL to the table's location."""
         return f"{self.location.abfss_path()}/{self.name}"
 
     @property
     def full_name(self) -> str:
+        """Generate full name of the Table.
+
+        Combines the catalog, schema and table name.
+        """
         return f"`{self.database.catalog.name}`.`{self.database.name}`.`{self.name}`"
 
 
@@ -95,6 +102,7 @@ class VolumeLocation(Location):
 
     @property
     def root_path(self) -> None:
+        """Generate path for Databricks location."""
         name = self.volume.name
         catalog_name = self.volume.catalog.name
         database_name = self.volume.database.name

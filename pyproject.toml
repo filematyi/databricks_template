@@ -1,12 +1,15 @@
 [tool.poetry]
 name = "databricks-boilerplate"
-version = "0.0.1"
+version = "0.0.4"
 description = ""
 authors = ["Matyas File <matyas.file@zeiss.com>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
 boilerplate = 'databricks_boilerplate.main:entry_point'
+init_catalog = 'databricks_boilerplate.main:init_catalog'
+process_raw = 'databricks_boilerplate.main:process_raw'
+process_enriched = 'databricks_boilerplate.main:process_enriched'
 
 [[tool.poetry.source]]
 name = "ZEISS_databricks_example"
