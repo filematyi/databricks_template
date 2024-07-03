@@ -2,7 +2,6 @@ install:
 	poetry install
 
 build:
-	poetry shell
 	poetry build
 
 upload:

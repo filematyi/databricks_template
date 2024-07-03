@@ -1,5 +1,4 @@
 import argparse
-from typing import Self
 from pydantic import BaseModel
 from pyspark.sql import SparkSession
 
@@ -24,7 +23,7 @@ class JobParameters(BaseModel):
     dry_run: bool
 
     @staticmethod
-    def parse_arguments() -> Self:
+    def parse_arguments():
         """Parse CLI arguments."""
         parser = argparse.ArgumentParser()
         parser.add_argument("-n", "--job_name", type=str)

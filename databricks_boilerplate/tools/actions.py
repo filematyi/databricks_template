@@ -34,7 +34,7 @@ def create_table(spark: SparkSession, table: Table) -> None:
 def create_volume(spark: SparkSession, volume: Volume) -> None:
     """Create new volume object."""
     command = f"""
-        CREATE EXTERNAL VOLUME `{volume.catalog.name}`.`{volume.database.name}`.`{volume.name}` LOCATION '{volume.location.abfss_path()}'
+        CREATE EXTERNAL VOLUME `{volume.database.catalog.name}`.`{volume.database.name}`.`{volume.name}` LOCATION '{volume.location.abfss_path()}'
     """
     spark.sql(command)
 
@@ -53,7 +53,7 @@ def insert_dataframe_to_table(dataframe: DataFrame, table: Table) -> None:
     ------------------
     DROP COLUMN
         table resinsert + data rewrite needed
-    CHANGE DTPYE
+    CHANGE DTYPE
         table reinsert needed
 
     """
